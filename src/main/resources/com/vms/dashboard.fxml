@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.vms.DashboardController"
+            styleClass="main-container">
+
+    <!-- EN-TÊTE -->
+    <top>
+        <HBox styleClass="header" alignment="CENTER_LEFT" spacing="20">
+            <padding>
+                <Insets top="15" right="20" bottom="15" left="20"/>
+            </padding>
+
+            <Label text="Home" styleClass="header-label"/>
+
+            <Label fx:id="timeLabel" text="12:19:50 PM" styleClass="header-label"/>
+
+            <Label fx:id="dateLabel" text="Sunday, 5 december, 2021" styleClass="header-label"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <!-- Section utilisateur -->
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Label fx:id="userNameLabel" text="Help Iman" styleClass="header-label"/>
+
+                <!-- Avatar -->
+                <StackPane styleClass="avatar">
+                    <Label text="I" styleClass="avatar-text">
+                        <font>
+                            <Font name="Arial Bold" size="16"/>
+                        </font>
+                    </Label>
+                </StackPane>
+            </HBox>
+        </HBox>
+    </top>
+
+    <!-- MENU LATÉRAL -->
+    <left>
+        <VBox styleClass="sidebar" spacing="10">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <!-- Bouton Dashboard -->
+            <HBox styleClass="sidebar-button-active" spacing="10">
+                <padding>
+                    <Insets top="12" right="15" bottom="12" left="15"/>
+                </padding>
+                <Label text="📊" styleClass="sidebar-icon"/>
+                <Label text="Dashboard" styleClass="sidebar-label"/>
+            </HBox>
+        </VBox>
+    </left>
+
+    <!-- CONTENU PRINCIPAL -->
+    <center>
+        <VBox styleClass="main-content" alignment="TOP_CENTER" spacing="30">
+            <padding>
+                <Insets top="40" right="60" bottom="40" left="60"/>
+            </padding>
+
+            <!-- Titre VMS -->
+            <StackPane styleClass="title-box" maxWidth="400">
+                <padding>
+                    <Insets top="30" right="80" bottom="30" left="80"/>
+                </padding>
+                <Label text="VMS" styleClass="title-text">
+                    <font>
+                        <Font name="Arial Bold" size="48"/>
+                    </font>
+                </Label>
+            </StackPane>
+
+            <!-- Première ligne de cartes -->
+            <HBox spacing="30" alignment="CENTER">
+                <!-- Carte DEMANDES -->
+                <VBox fx:id="demandesCard" styleClass="dashboard-card"
+                      alignment="CENTER" spacing="15"
+                      onMouseClicked="#handleDemandesClick">
+                    <padding>
+                        <Insets top="30" right="40" bottom="30" left="40"/>
+                    </padding>
+                    <Label text="DEMANDES" styleClass="card-title">
+                        <font>
+                            <Font name="Arial Bold" size="16"/>
+                        </font>
+                    </Label>
+                    <Label text="➤" styleClass="card-arrow"/>
+                </VBox>
+
+                <!-- Carte UTILISATEURS -->
+                <VBox fx:id="utilisateursCard" styleClass="dashboard-card"
+                      alignment="CENTER" spacing="15"
+                      onMouseClicked="#handleUtilisateursClick">
+                    <padding>
+                        <Insets top="30" right="40" bottom="30" left="40"/>
+                    </padding>
+                    <Label text="UTILISATEURS" styleClass="card-title">
+                        <font>
+                            <Font name="Arial Bold" size="16"/>
+                        </font>
+                    </Label>
+                    <Label text="➤" styleClass="card-arrow"/>
+                </VBox>
+            </HBox>
+
+            <!-- Deuxième ligne de cartes -->
+            <HBox spacing="30" alignment="CENTER">
+                <!-- Carte MAGASIN -->
+                <VBox fx:id="magasinCard" styleClass="dashboard-card"
+                      alignment="CENTER" spacing="15"
+                      onMouseClicked="#handleMagasinClick">
+                    <padding>
+                        <Insets top="30" right="40" bottom="30" left="40"/>
+                    </padding>
+                    <Label text="MAGASIN" styleClass="card-title">
+                        <font>
+                            <Font name="Arial Bold" size="16"/>
+                        </font>
+                    </Label>
+                    <Label text="➤" styleClass="card-arrow"/>
+                </VBox>
+
+                <!-- Carte CLIENTS -->
+                <VBox fx:id="clientsCard" styleClass="dashboard-card"
+                      alignment="CENTER" spacing="15"
+                      onMouseClicked="#handleClientsClick">
+                    <padding>
+                        <Insets top="30" right="40" bottom="30" left="40"/>
+                    </padding>
+                    <Label text="CLIENTS" styleClass="card-title">
+                        <font>
+                            <Font name="Arial Bold" size="16"/>
+                        </font>
+                    </Label>
+                    <Label text="➤" styleClass="card-arrow"/>
+                </VBox>
+
+                <!-- Carte VOUCHER -->
+                <VBox fx:id="voucherCard" styleClass="dashboard-card"
+                      alignment="CENTER" spacing="15"
+                      onMouseClicked="#handleVoucherClick">
+                    <padding>
+                        <Insets top="30" right="40" bottom="30" left="40"/>
+                    </padding>
+                    <Label text="VOUCHER" styleClass="card-title">
+                        <font>
+                            <Font name="Arial Bold" size="16"/>
+                        </font>
+                    </Label>
+                    <Label text="➤" styleClass="card-arrow"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

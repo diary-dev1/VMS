@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: linear-gradient(to bottom, #667eea 0%, #764ba2 100%);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vms.controller.SignupController">
+
+    <!-- Carte centrale -->
+    <VBox alignment="CENTER" layoutX="50.0" layoutY="50.0" prefHeight="500.0" prefWidth="300.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0, 0, 5);">
+        <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
+        </padding>
+
+        <!-- Titre -->
+        <Label text="Create Account" textFill="#667eea">
+            <font>
+                <Font name="System Bold" size="28.0"/>
+            </font>
+        </Label>
+
+        <Label text="Sign up to get started" textFill="#666666">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+
+        <!-- Formulaire -->
+        <VBox spacing="15.0" VBox.vgrow="ALWAYS">
+
+            <!-- Nom complet -->
+            <VBox spacing="5.0">
+                <Label text="Full Name" textFill="#333333">
+                    <font>
+                        <Font size="12.0"/>
+                    </font>
+                </Label>
+                <TextField fx:id="txtNomComplet" promptText="Enter your full name" style="-fx-background-color: #f5f5f5; -fx-background-radius: 8; -fx-padding: 10; -fx-border-color: #e0e0e0; -fx-border-radius: 8;"/>
+            </VBox>
+
+            <!-- Email -->
+            <VBox spacing="5.0">
+                <Label text="Email" textFill="#333333">
+                    <font>
+                        <Font size="12.0"/>
+                    </font>
+                </Label>
+                <TextField fx:id="txtEmail" promptText="Enter your email" style="-fx-background-color: #f5f5f5; -fx-background-radius: 8; -fx-padding: 10; -fx-border-color: #e0e0e0; -fx-border-radius: 8;"/>
+            </VBox>
+
+            <!-- Username -->
+            <VBox spacing="5.0">
+                <Label text="Username" textFill="#333333">
+                    <font>
+                        <Font size="12.0"/>
+                    </font>
+                </Label>
+                <TextField fx:id="txtUsername" promptText="Choose a username" style="-fx-background-color: #f5f5f5; -fx-background-radius: 8; -fx-padding: 10; -fx-border-color: #e0e0e0; -fx-border-radius: 8;"/>
+            </VBox>
+
+            <!-- Password -->
+            <VBox spacing="5.0">
+                <Label text="Password" textFill="#333333">
+                    <font>
+                        <Font size="12.0"/>
+                    </font>
+                </Label>
+                <PasswordField fx:id="txtPassword" promptText="Create a password" style="-fx-background-color: #f5f5f5; -fx-background-radius: 8; -fx-padding: 10; -fx-border-color: #e0e0e0; -fx-border-radius: 8;"/>
+            </VBox>
+
+            <!-- Confirm Password -->
+            <VBox spacing="5.0">
+                <Label text="Confirm Password" textFill="#333333">
+                    <font>
+                        <Font size="12.0"/>
+                    </font>
+                </Label>
+                <PasswordField fx:id="txtConfirmPassword" promptText="Confirm your password" style="-fx-background-color: #f5f5f5; -fx-background-radius: 8; -fx-padding: 10; -fx-border-color: #e0e0e0; -fx-border-radius: 8;"/>
+            </VBox>
+
+        </VBox>
+
+        <!-- Bouton Sign Up -->
+        <Button fx:id="btnSignup" onAction="#handleSignup" prefHeight="45.0" prefWidth="240.0" style="-fx-background-color: linear-gradient(to right, #667eea, #764ba2); -fx-text-fill: white; -fx-background-radius: 25; -fx-font-size: 14px; -fx-font-weight: bold; -fx-cursor: hand;" text="Sign Up">
+            <font>
+                <Font name="System Bold" size="14.0"/>
+            </font>
+        </Button>
+
+        <!-- Lien vers Login -->
+        <HBox alignment="CENTER" spacing="5.0">
+            <Label text="Already have an account?" textFill="#666666">
+                <font>
+                    <Font size="12.0"/>
+                </font>
+            </Label>
+            <Hyperlink fx:id="linkLogin" onAction="#goToLogin" text="Log in" textFill="#667eea">
+                <font>
+                    <Font name="System Bold" size="12.0"/>
+                </font>
+            </Hyperlink>
+        </HBox>
+
+    </VBox>
+
+</AnchorPane>

@@ -1,0 +1,327 @@
+═══════════════════════════════════════════════════════════════════════
+    GUIDE COMPLET INTELLIJ IDEA + MAVEN + JAVAFX
+    VMS Dashboard - Voucher Management System
+═══════════════════════════════════════════════════════════════════════
+
+📋 CE QUE VOUS ALLEZ FAIRE :
+────────────────────────────
+✓ Ouvrir le projet dans IntelliJ
+✓ Laisser Maven télécharger JavaFX automatiquement
+✓ Lancer l'application en 1 clic
+✓ Comprendre la structure du projet
+
+⏱️ TEMPS ESTIMÉ : 5-10 minutes (première fois)
+
+
+═══════════════════════════════════════════════════════════════════════
+ÉTAPE 1 : VÉRIFIER VOS OUTILS
+═══════════════════════════════════════════════════════════════════════
+
+✅ IntelliJ IDEA installé ? (Community ou Ultimate, les deux fonctionnent)
+   → Si non : https://www.jetbrains.com/idea/download/
+
+✅ Java installé ? (Java 11 ou plus récent)
+   → Pour vérifier, ouvrez un terminal et tapez : java -version
+   → Si non installé : https://www.oracle.com/java/technologies/downloads/
+
+
+═══════════════════════════════════════════════════════════════════════
+ÉTAPE 2 : OUVRIR LE PROJET DANS INTELLIJ
+═══════════════════════════════════════════════════════════════════════
+
+1. Décompressez le fichier vms-dashboard.zip
+   → Vous aurez un dossier "vms-dashboard"
+
+2. Lancez IntelliJ IDEA
+
+3. Sur l'écran d'accueil :
+   ┌─────────────────────────────┐
+   │   • New Project             │
+   │   • Open                    │  ← CLIQUEZ ICI
+   │   • Get from VCS            │
+   └─────────────────────────────┘
+
+4. Naviguez jusqu'au dossier "vms-dashboard"
+
+5. Sélectionnez le DOSSIER (pas un fichier)
+
+6. Cliquez sur "OK"
+
+
+═══════════════════════════════════════════════════════════════════════
+ÉTAPE 3 : IMPORT MAVEN (AUTOMATIQUE)
+═══════════════════════════════════════════════════════════════════════
+
+🎯 IntelliJ va détecter le fichier pom.xml automatiquement !
+
+VOUS ALLEZ VOIR une notification en bas à droite :
+
+   ┌────────────────────────────────────────────────────┐
+   │  Maven projects need to be imported                │
+   │  [Import Changes]  [Enable Auto-Import]            │
+   └────────────────────────────────────────────────────┘
+
+→ CLIQUEZ SUR "Enable Auto-Import" (recommandé)
+   OU
+→ CLIQUEZ SUR "Import Changes"
+
+
+🔄 Maven va maintenant :
+   ✓ Lire le fichier pom.xml
+   ✓ Télécharger JavaFX 21 (environ 50 MB)
+   ✓ Télécharger PostgreSQL driver
+   ✓ Télécharger toutes les autres dépendances
+   ✓ Configurer le projet automatiquement
+
+⏱️ Regardez la barre de progression en bas de la fenêtre !
+   "Resolving Maven dependencies..."
+
+💡 C'EST NORMAL que ça prenne 2-5 minutes la première fois !
+
+
+═══════════════════════════════════════════════════════════════════════
+ÉTAPE 4 : STRUCTURE DU PROJET
+═══════════════════════════════════════════════════════════════════════
+
+Une fois l'import terminé, vous verrez cette structure dans le panneau Project :
+
+vms-dashboard
+├── 📁 .idea                    (Configuration IntelliJ - ignorez)
+├── 📁 src
+│   └── 📁 main
+│       ├── 📁 java
+│       │   └── 📁 com.vms
+│       │       ├── 📄 Main.java                   ← FICHIER PRINCIPAL
+│       │       └── 📄 DashboardController.java    ← CONTRÔLEUR
+│       └── 📁 resources
+│           └── 📁 com.vms
+│               ├── 📄 dashboard.fxml              ← INTERFACE
+│               └── 📄 styles.css                  ← STYLES
+├── 📁 target                   (Fichiers compilés - ignorez)
+└── 📄 pom.xml                  (Configuration Maven)
+
+
+═══════════════════════════════════════════════════════════════════════
+ÉTAPE 5 : LANCER L'APPLICATION
+═══════════════════════════════════════════════════════════════════════
+
+🎯 MÉTHODE 1 : CLIC DROIT (LA PLUS SIMPLE)
+──────────────────────────────────────────
+
+1. Dans le panneau Project (à gauche), développez :
+   src → main → java → com.vms
+
+2. Vous voyez le fichier "Main.java"
+
+3. CLIC DROIT sur "Main.java"
+
+4. Sélectionnez : Run 'Main.main()'
+   (avec l'icône ▶ verte)
+
+5. 🎉 L'APPLICATION SE LANCE !
+
+
+🎯 MÉTHODE 2 : BOUTON PLAY VERT
+────────────────────────────────
+
+1. DOUBLE-CLIQUEZ sur "Main.java" pour l'ouvrir
+
+2. À côté de la ligne "public class Main", vous voyez un ▶ vert
+
+3. CLIQUEZ sur le ▶ vert
+
+4. Choisissez "Run 'Main.main()'"
+
+
+🎯 MÉTHODE 3 : AVEC MAVEN (Terminal)
+─────────────────────────────────────
+
+1. En bas de l'écran, cliquez sur "Terminal"
+
+2. Tapez :
+   mvn clean javafx:run
+
+3. Appuyez sur Entrée
+
+
+═══════════════════════════════════════════════════════════════════════
+ÉTAPE 6 : VÉRIFIER QUE ÇA MARCHE
+═══════════════════════════════════════════════════════════════════════
+
+✅ VOUS DEVEZ VOIR une fenêtre qui s'ouvre avec :
+
+   ┌─────────────────────────────────────────────────────┐
+   │  Home    12:19:50 PM    Sunday, 5 december, 2021   │  ← En-tête blanc
+   ├─────────────────────────────────────────────────────┤
+   │                                                      │
+   │                      VMS                            │  ← Titre gris
+   │                                                      │
+   │          ┌──────────┐    ┌──────────┐              │
+   │          │ DEMANDES │    │UTILISAT. │              │  ← Cartes blanches
+   │          └──────────┘    └──────────┘              │
+   │                                                      │
+   │   ┌──────────┐ ┌──────────┐ ┌──────────┐          │
+   │   │ MAGASIN  │ │ CLIENTS  │ │ VOUCHER  │          │
+   │   └──────────┘ └──────────┘ └──────────┘          │
+   └─────────────────────────────────────────────────────┘
+
+✅ Fond dégradé bleu
+✅ 5 cartes blanches cliquables
+✅ Effets hover quand vous passez la souris sur les cartes
+
+
+═══════════════════════════════════════════════════════════════════════
+ÉTAPE 7 : TESTER LES FONCTIONNALITÉS
+═══════════════════════════════════════════════════════════════════════
+
+👆 CLIQUEZ sur une carte (ex: DEMANDES)
+
+→ Un message apparaît : "Module DEMANDES - En développement"
+
+💡 C'est normal ! Les modules ne sont pas encore développés.
+   Le dashboard est prêt, vous devez maintenant créer les pages
+   pour chaque module.
+
+
+═══════════════════════════════════════════════════════════════════════
+❌ PROBLÈMES COURANTS
+═══════════════════════════════════════════════════════════════════════
+
+PROBLÈME 1 : "Cannot resolve symbol 'javafx'"
+─────────────────────────────────────────────
+CAUSE : Maven n'a pas téléchargé les dépendances
+
+SOLUTION :
+1. Clic droit sur le projet → Maven → Reload Project
+2. Ou dans le terminal : mvn clean install
+
+
+PROBLÈME 2 : "Error: JavaFX runtime components are missing"
+───────────────────────────────────────────────────────────
+CAUSE : Vous avez lancé avec "Run" au lieu de Maven
+
+SOLUTION :
+Utilisez le terminal : mvn javafx:run
+
+
+PROBLÈME 3 : Rien ne se passe quand je clique sur Run
+──────────────────────────────────────────────────────
+CAUSE : Java n'est pas configuré
+
+SOLUTION :
+1. File → Project Structure (Ctrl+Alt+Shift+S)
+2. Onglet "Project"
+3. SDK : Sélectionnez JDK 11 ou plus récent
+4. Si aucun JDK n'est listé, cliquez sur "Download JDK..."
+
+
+PROBLÈME 4 : Le panneau Project est vide
+─────────────────────────────────────────
+CAUSE : Mauvais dossier ouvert
+
+SOLUTION :
+Fermez le projet et rouvrez le dossier "vms-dashboard"
+(celui qui CONTIENT le fichier pom.xml)
+
+
+PROBLÈME 5 : Maven bloqué sur "Resolving dependencies"
+───────────────────────────────────────────────────────
+CAUSE : Problème de connexion Internet ou proxy
+
+SOLUTION :
+1. Vérifiez votre connexion Internet
+2. File → Settings → Build, Execution, Deployment → Build Tools → Maven
+3. Vérifiez "Maven home path"
+4. Essayez : mvn -U clean install (dans terminal)
+
+
+═══════════════════════════════════════════════════════════════════════
+🎓 COMPRENDRE LA STRUCTURE
+═══════════════════════════════════════════════════════════════════════
+
+📄 Main.java
+───────────
+→ Point d'entrée de l'application
+→ Charge le fichier FXML
+→ Crée la fenêtre principale
+→ Lance JavaFX
+
+📄 DashboardController.java
+──────────────────────────
+→ Gère les événements du dashboard
+→ Répond aux clics sur les cartes
+→ Met à jour l'interface
+
+📄 dashboard.fxml
+────────────────
+→ Définit l'interface graphique
+→ Structure XML
+→ Lie les éléments au contrôleur
+
+📄 styles.css
+────────────
+→ Apparence visuelle
+→ Couleurs, tailles, effets
+→ Styles CSS classiques
+
+📄 pom.xml
+─────────
+→ Configuration Maven
+→ Liste des dépendances (JavaFX, PostgreSQL, etc.)
+→ Plugins pour compiler et lancer
+
+
+═══════════════════════════════════════════════════════════════════════
+🚀 PROCHAINES ÉTAPES
+═══════════════════════════════════════════════════════════════════════
+
+Maintenant que le dashboard fonctionne, vous pouvez :
+
+1. ✅ Créer les pages pour chaque module
+   → Créez demandes.fxml, utilisateurs.fxml, etc.
+
+2. ✅ Connecter à PostgreSQL
+   → Installez PostgreSQL
+   → Créez la base de données "vms"
+   → Utilisez le driver JDBC (déjà dans pom.xml)
+
+3. ✅ Créer les classes modèles
+   → Demande.java, Utilisateur.java, Client.java, etc.
+
+4. ✅ Implémenter les DAO (Data Access Objects)
+   → Pour communiquer avec la base de données
+
+5. ✅ Ajouter l'authentification
+   → Page de login
+   → Gestion des sessions
+
+
+═══════════════════════════════════════════════════════════════════════
+💡 ASTUCES INTELLIJ
+═══════════════════════════════════════════════════════════════════════
+
+🔥 RACCOURCIS UTILES :
+• Ctrl + Shift + F10 : Lancer l'application
+• Shift + F10 : Relancer la dernière exécution
+• Ctrl + F9 : Compiler le projet
+• Alt + 1 : Afficher/masquer le panneau Project
+• Alt + 4 : Afficher/masquer le panneau Run
+• Ctrl + Alt + L : Formater le code
+
+🔥 FONCTIONNALITÉS :
+• Double Shift : Chercher n'importe quoi dans le projet
+• Ctrl + clic sur une classe : Aller à sa définition
+• Alt + Insert : Générer du code (constructeurs, getters, setters)
+
+
+═══════════════════════════════════════════════════════════════════════
+📞 BESOIN D'AIDE ?
+═══════════════════════════════════════════════════════════════════════
+
+Si vous êtes bloqué :
+1. Regardez la console en bas (messages d'erreur détaillés)
+2. Vérifiez que Maven a bien téléchargé les dépendances
+3. Assurez-vous que le JDK est bien configuré
+4. Recherchez l'erreur sur Google ou Stack Overflow
+
+Bon développement ! 🎉

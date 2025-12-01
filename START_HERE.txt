@@ -1,0 +1,176 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║                                                                   ║
+║        🎯 VMS DASHBOARD - VOUCHER MANAGEMENT SYSTEM              ║
+║           Version Maven + JavaFX + FXML + IntelliJ               ║
+║                                                                   ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+
+📦 BIENVENUE !
+──────────────
+Vous avez téléchargé le projet VMS Dashboard - une application
+JavaFX professionnelle pour la gestion de bons cadeau.
+
+
+🎓 PROJET ACADÉMIQUE
+────────────────────
+BTS SIO - Option SLAM
+MCCI Business School Ltd
+Réalisation Professionnelle No. 2
+
+
+✨ CONTENU DU PACKAGE
+─────────────────────
+✓ Code source Java complet
+✓ Fichiers FXML pour l'interface
+✓ Styles CSS personnalisables
+✓ Configuration Maven
+✓ Documentation complète en français
+✓ Guide pas-à-pas pour IntelliJ IDEA
+
+
+🚀 DÉMARRAGE RAPIDE (3 ÉTAPES)
+───────────────────────────────
+
+1️⃣  Ouvrez IntelliJ IDEA
+    → File → Open
+    → Sélectionnez le dossier "vms-dashboard"
+
+2️⃣  Attendez que Maven télécharge les dépendances
+    → Cliquez sur "Enable Auto-Import" quand demandé
+    → Patientez 2-5 minutes (première fois seulement)
+
+3️⃣  Lancez l'application
+    → Ouvrez : src/main/java/com/vms/Main.java
+    → Clic droit → Run 'Main.main()'
+    → 🎉 Le dashboard s'affiche !
+
+
+📚 DOCUMENTATION DISPONIBLE
+───────────────────────────
+
+📄 README.md
+   → Documentation technique complète
+   → Architecture du projet
+   → Commandes Maven
+   → Prochaines étapes
+
+📄 GUIDE_INTELLIJ.txt
+   → Guide détaillé pour IntelliJ IDEA
+   → Instructions pas à pas
+   → Résolution de problèmes
+   → Astuces et raccourcis
+
+📄 GUIDE_VISUEL.html
+   → Guide interactif avec mise en forme
+   → À ouvrir dans un navigateur web
+   → Visuel et facile à suivre
+
+
+🏗️ STRUCTURE DU PROJET
+───────────────────────
+
+vms-dashboard/
+├── pom.xml                     ← Configuration Maven
+├── src/main/
+│   ├── java/com/vms/
+│   │   ├── Main.java           ← Point d'entrée
+│   │   └── DashboardController.java
+│   └── resources/com/vms/
+│       ├── dashboard.fxml      ← Interface
+│       └── styles.css          ← Styles
+
+
+💻 TECHNOLOGIES UTILISÉES
+─────────────────────────
+☕ Java 17 (ou supérieur)
+🎨 JavaFX 21
+📄 FXML (Interface XML)
+🔧 Maven (Gestion dépendances)
+🐘 PostgreSQL (Driver inclus)
+🎯 Architecture MVC
+
+
+🎨 MODULES DU DASHBOARD
+───────────────────────
+✓ DEMANDES      - Gestion des demandes de bons
+✓ UTILISATEURS  - Administration utilisateurs
+✓ MAGASIN       - Gestion des magasins
+✓ CLIENTS       - Base de données clients
+✓ VOUCHER       - Création et suivi des bons
+
+
+⚙️ PRÉREQUIS
+────────────
+✅ IntelliJ IDEA (Community ou Ultimate)
+✅ Java JDK 11 ou supérieur (17 recommandé)
+✅ Maven (inclus dans IntelliJ)
+✅ Connexion Internet (pour télécharger dépendances)
+
+
+❓ BESOIN D'AIDE ?
+─────────────────
+
+1. Consultez le GUIDE_INTELLIJ.txt pour des instructions détaillées
+
+2. Ouvrez GUIDE_VISUEL.html dans votre navigateur pour un guide 
+   interactif avec des couleurs et des explications visuelles
+
+3. Lisez le README.md pour la documentation technique complète
+
+4. Si vous rencontrez des problèmes :
+   - Vérifiez que Java est installé : java -version
+   - Vérifiez que Maven fonctionne dans IntelliJ
+   - Consultez la section "Résolution de problèmes" dans les guides
+
+
+🎯 COMMANDES RAPIDES
+────────────────────
+
+Avec IntelliJ :
+→ Clic droit sur Main.java → Run 'Main.main()'
+
+Avec le terminal IntelliJ :
+→ mvn javafx:run           (Lancer l'application)
+→ mvn clean install        (Nettoyer et compiler)
+→ mvn package              (Créer un JAR)
+
+
+📞 SUPPORT
+──────────
+En cas de problème technique :
+1. Consultez les guides fournis
+2. Vérifiez les logs d'erreur dans IntelliJ
+3. Recherchez l'erreur sur Google/Stack Overflow
+
+
+🚀 PROCHAINES ÉTAPES
+────────────────────
+Une fois le dashboard fonctionnel :
+
+1. Créer les pages pour chaque module
+   (demandes.fxml, utilisateurs.fxml, etc.)
+
+2. Installer et configurer PostgreSQL
+
+3. Créer les classes modèles
+   (Demande.java, Client.java, etc.)
+
+4. Implémenter les DAO pour la base de données
+
+5. Ajouter l'authentification utilisateur
+
+
+═══════════════════════════════════════════════════════════════════
+
+Bon développement ! 🎉
+
+Si tout fonctionne, vous devriez voir une fenêtre avec :
+- Un en-tête blanc avec l'heure et la date
+- Un fond dégradé bleu
+- Un titre "VMS" au centre
+- 5 cartes blanches cliquables
+
+═══════════════════════════════════════════════════════════════════
+
+© 2024 - Projet BTS SIO - MCCI Business School

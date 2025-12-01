@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.vms.controller.MagasinsController"
+            style="-fx-background-color: #F5F5F7;">
+
+    <!-- EN-TÊTE -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: white; -fx-padding: 15 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+            <Button text="← Retour" onAction="#retourDashboard"
+                    style="-fx-background-color: #6366F1; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold;"/>
+
+            <Label text="GESTION DES MAGASINS" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1E293B;"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Label fx:id="userNameLabel" text="Admin" style="-fx-font-size: 14px; -fx-text-fill: #64748B; -fx-font-weight: bold;"/>
+        </HBox>
+    </top>
+
+    <!-- CONTENU PRINCIPAL -->
+    <center>
+        <VBox style="-fx-padding: 30;" spacing="20">
+            <!-- Barre d'actions et filtres -->
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <Button text="➕ Nouveau Magasin" onAction="#afficherFormulaireNouveau"
+                        style="-fx-background-color: #8B5CF6; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold;"/>
+
+                <Button text="🔄 Actualiser" onAction="#actualiserListe"
+                        style="-fx-background-color: #F1F5F9; -fx-text-fill: #475569; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold;"/>
+
+                <Button text="📊 Export Excel" onAction="#exporterExcel"
+                        style="-fx-background-color: #10B981; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold;"/>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <ComboBox fx:id="filtreVille" promptText="Ville" prefWidth="150"
+                          style="-fx-background-radius: 8; -fx-padding: 8;"/>
+
+                <ComboBox fx:id="filtreStatut" promptText="Statut" prefWidth="120"
+                          style="-fx-background-radius: 8; -fx-padding: 8;"/>
+
+                <TextField fx:id="champRecherche" promptText="🔍 Rechercher..." prefWidth="300"
+                           style="-fx-background-radius: 8; -fx-padding: 10; -fx-border-color: #E0E0E0; -fx-border-radius: 8; -fx-background-color: white;"/>
+            </HBox>
+
+            <!-- Statistiques -->
+            <HBox spacing="20">
+                <VBox alignment="CENTER" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 2);" HBox.hgrow="ALWAYS">
+                    <Label fx:id="totalMagasins" text="0" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #1E293B;"/>
+                    <Label text="Total Magasins" style="-fx-text-fill: #64748B; -fx-font-size: 14px;"/>
+                </VBox>
+
+                <VBox alignment="CENTER" style="-fx-background-color: #D1FAE5; -fx-padding: 20; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 2);" HBox.hgrow="ALWAYS">
+                    <Label fx:id="magasinsActifs" text="0" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #10B981;"/>
+                    <Label text="Magasins Actifs" style="-fx-text-fill: #065F46; -fx-font-size: 14px;"/>
+                </VBox>
+
+                <VBox alignment="CENTER" style="-fx-background-color: #DBEAFE; -fx-padding: 20; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 2);" HBox.hgrow="ALWAYS">
+                    <Label fx:id="totalRedemptions" text="0" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #3B82F6;"/>
+                    <Label text="Rédemptions Totales" style="-fx-text-fill: #1E40AF; -fx-font-size: 14px;"/>
+                </VBox>
+            </HBox>
+
+            <!-- Tableau -->
+            <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2); -fx-padding: 20;" VBox.vgrow="ALWAYS">
+                <TableView fx:id="tableMagasins" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent;">
+                    <columns>
+                        <TableColumn fx:id="colCode" text="Code" prefWidth="100"/>
+                        <TableColumn fx:id="colNom" text="Nom" prefWidth="200"/>
+                        <TableColumn fx:id="colVille" text="Ville" prefWidth="120"/>
+                        <TableColumn fx:id="colTelephone" text="Téléphone" prefWidth="120"/>
+                        <TableColumn fx:id="colResponsable" text="Responsable" prefWidth="150"/>
+                        <TableColumn fx:id="colStatut" text="Statut" prefWidth="100"/>
+                        <TableColumn fx:id="colRedemptions" text="Rédemptions" prefWidth="100"/>
+                        <TableColumn fx:id="colActions" text="Actions" prefWidth="180"/>
+                    </columns>
+                    <placeholder>
+                        <Label text="Aucun magasin à afficher" style="-fx-text-fill: #94A3B8; -fx-font-size: 14px;"/>
+                    </placeholder>
+                </TableView>
+            </VBox>
+        </VBox>
+    </center>
+
+    <!-- FORMULAIRE LATÉRAL -->
+    <right>
+        <VBox fx:id="panelFormulaire" visible="false" managed="false" spacing="15"
+              style="-fx-background-color: white; -fx-padding: 30; -fx-pref-width: 400; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 15, 0, -5, 0);">
+
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="🏪 Informations Magasin" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1E293B;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="✕" onAction="#annulerFormulaire"
+                        style="-fx-background-color: transparent; -fx-text-fill: #94A3B8; -fx-font-size: 20px; -fx-cursor: hand;"/>
+            </HBox>
+
+            <Separator style="-fx-background-color: #E5E7EB;"/>
+
+            <VBox spacing="8">
+                <Label text="Nom du magasin :" style="-fx-font-weight: bold; -fx-text-fill: #475569; -fx-font-size: 14px;"/>
+                <TextField fx:id="txtNom" promptText="Ex: Magasin Central"
+                           style="-fx-background-color: #F8FAFC; -fx-background-radius: 8; -fx-padding: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 8;"/>
+            </VBox>
+
+            <VBox spacing="8">
+                <Label text="Type de magasin :" style="-fx-font-weight: bold; -fx-text-fill: #475569; -fx-font-size: 14px;"/>
+                <ComboBox fx:id="comboTypeMagasin" promptText="Sélectionner un type" maxWidth="Infinity"
+                          style="-fx-background-color: #F8FAFC; -fx-background-radius: 8; -fx-padding: 12;"/>
+            </VBox>
+
+            <VBox spacing="8">
+                <Label text="Ville :" style="-fx-font-weight: bold; -fx-text-fill: #475569; -fx-font-size: 14px;"/>
+                <TextField fx:id="txtVille" promptText="Ex: Port Louis"
+                           style="-fx-background-color: #F8FAFC; -fx-background-radius: 8; -fx-padding: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 8;"/>
+            </VBox>
+
+            <VBox spacing="8">
+                <Label text="Adresse :" style="-fx-font-weight: bold; -fx-text-fill: #475569; -fx-font-size: 14px;"/>
+                <TextArea fx:id="txtAdresse" promptText="Adresse complète" prefRowCount="2" wrapText="true"
+                          style="-fx-background-color: #F8FAFC; -fx-background-radius: 8; -fx-padding: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 8;"/>
+            </VBox>
+
+            <HBox spacing="10">
+                <VBox spacing="8" HBox.hgrow="ALWAYS">
+                    <Label text="Téléphone :" style="-fx-font-weight: bold; -fx-text-fill: #475569; -fx-font-size: 14px;"/>
+                    <TextField fx:id="txtTelephone" promptText="+230 xxx xxxx"
+                               style="-fx-background-color: #F8FAFC; -fx-background-radius: 8; -fx-padding: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 8;"/>
+                </VBox>
+            </HBox>
+
+            <VBox spacing="8">
+                <Label text="Email :" style="-fx-font-weight: bold; -fx-text-fill: #475569; -fx-font-size: 14px;"/>
+                <TextField fx:id="txtEmail" promptText="email@magasin.com"
+                           style="-fx-background-color: #F8FAFC; -fx-background-radius: 8; -fx-padding: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 8;"/>
+            </VBox>
+
+            <VBox spacing="8">
+                <Label text="Responsable :" style="-fx-font-weight: bold; -fx-text-fill: #475569; -fx-font-size: 14px;"/>
+                <TextField fx:id="txtResponsable" promptText="Nom du responsable"
+                           style="-fx-background-color: #F8FAFC; -fx-background-radius: 8; -fx-padding: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 8;"/>
+            </VBox>
+
+            <HBox spacing="10">
+                <VBox spacing="8" HBox.hgrow="ALWAYS">
+                    <Label text="Ouverture :" style="-fx-font-weight: bold; -fx-text-fill: #475569; -fx-font-size: 14px;"/>
+                    <TextField fx:id="txtHeureOuverture" promptText="09:00"
+                               style="-fx-background-color: #F8FAFC; -fx-background-radius: 8; -fx-padding: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 8;"/>
+                </VBox>
+
+                <VBox spacing="8" HBox.hgrow="ALWAYS">
+                    <Label text="Fermeture :" style="-fx-font-weight: bold; -fx-text-fill: #475569; -fx-font-size: 14px;"/>
+                    <TextField fx:id="txtHeureFermeture" promptText="18:00"
+                               style="-fx-background-color: #F8FAFC; -fx-background-radius: 8; -fx-padding: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 8;"/>
+                </VBox>
+            </HBox>
+
+            <CheckBox fx:id="chkActif" text="Magasin actif" selected="true"
+                      style="-fx-font-weight: bold; -fx-text-fill: #475569; -fx-font-size: 14px;"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <HBox spacing="10">
+                <Button text="Annuler" onAction="#annulerFormulaire" HBox.hgrow="ALWAYS"
+                        style="-fx-background-color: #F1F5F9; -fx-text-fill: #475569; -fx-font-size: 14px; -fx-padding: 12 20; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold;"/>
+
+                <Button text="✓ Enregistrer" onAction="#enregistrerMagasin" HBox.hgrow="ALWAYS"
+                        style="-fx-background-color: #8B5CF6; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 12 20; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold;"/>
+            </HBox>
+        </VBox>
+    </right>
+
+</BorderPane>

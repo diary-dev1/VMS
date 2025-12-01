@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" 
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.vms.controller.ClientsController"
+            styleClass="main-container">
+
+    <top>
+        <HBox styleClass="header" alignment="CENTER_LEFT" spacing="20">
+            <padding>
+                <Insets top="15" right="20" bottom="15" left="20"/>
+            </padding>
+            <Button text="← Retour" onAction="#retourDashboard" styleClass="button-secondary"/>
+            <Label text="Gestion des Clients" styleClass="page-title">
+                <font><Font name="Arial Bold" size="20"/></font>
+            </Label>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="userNameLabel" text="Admin" styleClass="header-label"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="20" styleClass="content-area">
+            <padding><Insets top="20" right="30" bottom="20" left="30"/></padding>
+
+            <!-- BARRE D'ACTIONS -->
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <Button text="➕ Nouveau Client" onAction="#afficherFormulaireNouveau" styleClass="button-primary"/>
+                <Button text="🔄 Actualiser" onAction="#actualiserListe" styleClass="button-secondary"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="champRecherche" promptText="🔍 Rechercher..." 
+                           prefWidth="300" onKeyReleased="#rechercherClient"/>
+            </HBox>
+
+            <!-- STATISTIQUES -->
+            <HBox spacing="20">
+                <VBox styleClass="stat-card" alignment="CENTER" spacing="10" HBox.hgrow="ALWAYS">
+                    <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+                    <Label fx:id="totalClients" text="0" styleClass="stat-number">
+                        <font><Font name="Arial Bold" size="32"/></font>
+                    </Label>
+                    <Label text="Total Clients" styleClass="stat-label"/>
+                </VBox>
+                <VBox styleClass="stat-card-success" alignment="CENTER" spacing="10" HBox.hgrow="ALWAYS">
+                    <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+                    <Label fx:id="clientsActifs" text="0" styleClass="stat-number">
+                        <font><Font name="Arial Bold" size="32"/></font>
+                    </Label>
+                    <Label text="Clients Actifs" styleClass="stat-label"/>
+                </VBox>
+                <VBox styleClass="stat-card-info" alignment="CENTER" spacing="10" HBox.hgrow="ALWAYS">
+                    <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+                    <Label fx:id="totalDemandes" text="0" styleClass="stat-number">
+                        <font><Font name="Arial Bold" size="32"/></font>
+                    </Label>
+                    <Label text="Total Demandes" styleClass="stat-label"/>
+                </VBox>
+            </HBox>
+
+            <!-- TABLEAU -->
+            <TableView fx:id="tableClients" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colNumero" text="N° Compte" prefWidth="100"/>
+                    <TableColumn fx:id="colNom" text="Nom" prefWidth="200"/>
+                    <TableColumn fx:id="colEmail" text="Email" prefWidth="180"/>
+                    <TableColumn fx:id="colTelephone" text="Téléphone" prefWidth="120"/>
+                    <TableColumn fx:id="colContact" text="Contact" prefWidth="150"/>
+                    <TableColumn fx:id="colStatut" text="Statut" prefWidth="80"/>
+                    <TableColumn fx:id="colDateInscription" text="Inscription" prefWidth="100"/>
+                    <TableColumn fx:id="colActions" text="Actions" prefWidth="180"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+
+    <!-- FORMULAIRE -->
+    <right>
+        <VBox fx:id="panelFormulaire" styleClass="form-panel" spacing="15" visible="false" managed="false">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+            <Label text="📝 Nouveau Client" styleClass="form-title">
+                <font><Font name="Arial Bold" size="18"/></font>
+            </Label>
+            <Separator/>
+            
+            <VBox spacing="5">
+                <Label text="Nom de l'entreprise :" styleClass="label-bold"/>
+                <TextField fx:id="txtNom" promptText="Ex: ABC Company Ltd"/>
+            </VBox>
+            
+            <VBox spacing="5">
+                <Label text="Email :" styleClass="label-bold"/>
+                <TextField fx:id="txtEmail" promptText="contact@abc.com"/>
+            </VBox>
+            
+            <VBox spacing="5">
+                <Label text="Téléphone :" styleClass="label-bold"/>
+                <TextField fx:id="txtTelephone" promptText="+230 xxx xxxx"/>
+            </VBox>
+            
+            <VBox spacing="5">
+                <Label text="Adresse :" styleClass="label-bold"/>
+                <TextArea fx:id="txtAdresse" promptText="Adresse complète" prefRowCount="2"/>
+            </VBox>
+            
+            <VBox spacing="5">
+                <Label text="Personne de contact :" styleClass="label-bold"/>
+                <TextField fx:id="txtContact" promptText="Nom du contact"/>
+            </VBox>
+            
+            <VBox spacing="5">
+                <Label text="Remarques :" styleClass="label-bold"/>
+                <TextArea fx:id="txtRemarques" promptText="Remarques..." prefRowCount="2"/>
+            </VBox>
+            
+            <Region VBox.vgrow="ALWAYS"/>
+            
+            <HBox spacing="10">
+                <Button text="✔ Enregistrer" onAction="#enregistrerClient" styleClass="button-primary" HBox.hgrow="ALWAYS"/>
+                <Button text="✖ Annuler" onAction="#annulerFormulaire" styleClass="button-danger" HBox.hgrow="ALWAYS"/>
+            </HBox>
+        </VBox>
+    </right>
+</BorderPane>

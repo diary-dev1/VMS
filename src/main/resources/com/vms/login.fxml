@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: linear-gradient(to bottom, #667eea 0%, #764ba2 100%);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vms.controller.LoginController">
+
+    <!-- Carte centrale -->
+    <VBox alignment="CENTER" layoutX="50.0" layoutY="100.0" prefHeight="400.0" prefWidth="300.0" spacing="25.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0, 0, 5);">
+        <padding>
+            <Insets bottom="40.0" left="30.0" right="30.0" top="40.0"/>
+        </padding>
+
+        <!-- Logo et titre -->
+        <VBox alignment="CENTER" spacing="10.0">
+            <Label text="VMS" textFill="#667eea">
+                <font>
+                    <Font name="System Bold" size="36.0"/>
+                </font>
+            </Label>
+
+            <Label text="Voucher Management System" textFill="#666666">
+                <font>
+                    <Font size="12.0"/>
+                </font>
+            </Label>
+        </VBox>
+
+        <!-- Message d'erreur -->
+        <Label fx:id="lblError" managed="false" textFill="#EF4444" visible="false" wrapText="true">
+            <font>
+                <Font size="11.0"/>
+            </font>
+        </Label>
+
+        <!-- Formulaire de connexion -->
+        <VBox spacing="15.0" VBox.vgrow="ALWAYS">
+
+            <!-- Username -->
+            <VBox spacing="5.0">
+                <Label text="Username" textFill="#333333">
+                    <font>
+                        <Font size="12.0"/>
+                    </font>
+                </Label>
+                <TextField fx:id="txtUsername" promptText="Enter your username" style="-fx-background-color: #f5f5f5; -fx-background-radius: 8; -fx-padding: 10; -fx-border-color: #e0e0e0; -fx-border-radius: 8;"/>
+            </VBox>
+
+            <!-- Password -->
+            <VBox spacing="5.0">
+                <Label text="Password" textFill="#333333">
+                    <font>
+                        <Font size="12.0"/>
+                    </font>
+                </Label>
+                <PasswordField fx:id="txtPassword" promptText="Enter your password" style="-fx-background-color: #f5f5f5; -fx-background-radius: 8; -fx-padding: 10; -fx-border-color: #e0e0e0; -fx-border-radius: 8;"/>
+            </VBox>
+
+        </VBox>
+
+        <!-- Bouton Login -->
+        <Button fx:id="btnLogin" defaultButton="true" onAction="#handleLogin" prefHeight="45.0" prefWidth="240.0" style="-fx-background-color: linear-gradient(to right, #667eea, #764ba2); -fx-text-fill: white; -fx-background-radius: 25; -fx-font-size: 14px; -fx-font-weight: bold; -fx-cursor: hand;" text="Log In">
+            <font>
+                <Font name="System Bold" size="14.0"/>
+            </font>
+        </Button>
+
+        <!-- Lien Sign up -->
+        <HBox alignment="CENTER" spacing="5.0">
+            <Label text="Don't have an account?" textFill="#666666">
+                <font>
+                    <Font size="12.0"/>
+                </font>
+            </Label>
+            <Hyperlink fx:id="linkSignup" onAction="#goToSignup" text="Sign up" textFill="#667eea">
+                <font>
+                    <Font name="System Bold" size="12.0"/>
+                </font>
+            </Hyperlink>
+        </HBox>
+
+    </VBox>
+
+</AnchorPane>
