@@ -62,9 +62,9 @@ public class MagasinDAO {
     }
 
     public int createMagasin(Magasin magasin) throws SQLException {
-        String query = "INSERT INTO magasins (code, nom, adresse, ville, telephone, email, " +
+        String query = "INSERT INTO magasins (code, nom, adresse, ville, telephone, " +
                 "responsable, type_magasin, heure_ouverture, heure_fermeture, actif, date_ouverture) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -74,13 +74,12 @@ public class MagasinDAO {
             pstmt.setString(3, magasin.getAdresse());
             pstmt.setString(4, magasin.getVille());
             pstmt.setString(5, magasin.getTelephone());
-            pstmt.setString(6, magasin.getEmail());
-            pstmt.setString(7, magasin.getResponsable());
-            pstmt.setString(8, magasin.getTypeMagasin());
-            pstmt.setObject(9, magasin.getHeureOuverture());
-            pstmt.setObject(10, magasin.getHeureFermeture());
-            pstmt.setBoolean(11, magasin.isActif());
-            pstmt.setDate(12, Date.valueOf(magasin.getDateOuverture()));
+            pstmt.setString(6, magasin.getResponsable());
+            pstmt.setString(7, magasin.getTypeMagasin());
+            pstmt.setObject(8, magasin.getHeureOuverture());
+            pstmt.setObject(9, magasin.getHeureFermeture());
+            pstmt.setBoolean(10, magasin.isActif());
+            pstmt.setDate(11, Date.valueOf(magasin.getDateOuverture()));
 
             int rowsAffected = pstmt.executeUpdate();
 
@@ -97,7 +96,7 @@ public class MagasinDAO {
 
     public boolean updateMagasin(Magasin magasin) throws SQLException {
         String query = "UPDATE magasins SET nom = ?, adresse = ?, ville = ?, telephone = ?, " +
-                "email = ?, responsable = ?, type_magasin = ?, heure_ouverture = ?, " +
+                "responsable = ?, type_magasin = ?, heure_ouverture = ?, " +
                 "heure_fermeture = ?, actif = ? WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -107,13 +106,12 @@ public class MagasinDAO {
             pstmt.setString(2, magasin.getAdresse());
             pstmt.setString(3, magasin.getVille());
             pstmt.setString(4, magasin.getTelephone());
-            pstmt.setString(5, magasin.getEmail());
-            pstmt.setString(6, magasin.getResponsable());
-            pstmt.setString(7, magasin.getTypeMagasin());
-            pstmt.setObject(8, magasin.getHeureOuverture());
-            pstmt.setObject(9, magasin.getHeureFermeture());
-            pstmt.setBoolean(10, magasin.isActif());
-            pstmt.setInt(11, magasin.getId());
+            pstmt.setString(5, magasin.getResponsable());
+            pstmt.setString(6, magasin.getTypeMagasin());
+            pstmt.setObject(7, magasin.getHeureOuverture());
+            pstmt.setObject(8, magasin.getHeureFermeture());
+            pstmt.setBoolean(9, magasin.isActif());
+            pstmt.setInt(10, magasin.getId());
 
             return pstmt.executeUpdate() > 0;
         }
@@ -193,7 +191,6 @@ public class MagasinDAO {
         magasin.setAdresse(rs.getString("adresse"));
         magasin.setVille(rs.getString("ville"));
         magasin.setTelephone(rs.getString("telephone"));
-        magasin.setEmail(rs.getString("email"));
         magasin.setResponsable(rs.getString("responsable"));
         magasin.setTypeMagasin(rs.getString("type_magasin"));
 

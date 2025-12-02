@@ -446,86 +446,92 @@ public class VouchersController {
             return;
         }
 
-        // Demander l'email du destinataire
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Envoyer Voucher par Email");
-        dialog.setHeaderText("Émettre et envoyer le voucher à : " + voucher.getClientNom());
-        dialog.setContentText("Adresse email :");
+        // Récupérer l'email du client depuis la base de données
+        try {
+            ClientDAO clientDAO = new ClientDAO();
+            Client client = clientDAO.getClientById(voucher.getClientId());
 
-        dialog.showAndWait().ifPresent(email -> {
-            if (email.isEmpty() || !email.contains("@")) {
-                afficherErreur("Erreur", "Adresse email invalide");
+            if (client == null) {
+                afficherErreur("Erreur", "Client introuvable pour ce voucher");
                 return;
             }
 
-            // Confirmation
-            Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmation.setTitle("Confirmation");
-            confirmation.setHeaderText("Émettre et envoyer ce voucher ?");
-            confirmation.setContentText(
-                    "Code : " + voucher.getCode() + "\n" +
-                            "Valeur : " + voucher.getValeur() + " Rs\n" +
-                            "Email : " + email + "\n\n" +
-                            "Le voucher sera émis et envoyé par email avec le PDF."
-            );
+            String emailClient = client.getEmail();
 
-            confirmation.showAndWait().ifPresent(response -> {
-                if (response == ButtonType.OK) {
-                    // Afficher une progression
-                    Alert progressAlert = new Alert(Alert.AlertType.INFORMATION);
-                    progressAlert.setTitle("Envoi en cours");
-                    progressAlert.setHeaderText("Génération et envoi du voucher...");
-                    progressAlert.setContentText("Veuillez patienter...");
-                    progressAlert.show();
+            if (emailClient == null || emailClient.isEmpty() || !emailClient.contains("@")) {
+                afficherErreur("Email manquant",
+                        "Le client " + voucher.getClientNom() + " n'a pas d'adresse email enregistrée.\n\n" +
+                                "Veuillez ajouter l'email du client dans le module Clients.");
+                return;
+            }
 
-                    // Exécuter dans un thread séparé pour ne pas bloquer l'interface
-                    new Thread(() -> {
-                        try {
-                            // 1. Générer le PDF
-                            String pdfPath = VoucherPDFGenerator.generateVoucherPDF(voucher);
+            // Afficher message de traitement
+            Alert progressAlert = new Alert(Alert.AlertType.INFORMATION);
+            progressAlert.setTitle("Envoi en cours");
+            progressAlert.setHeaderText("📧 Envoi du voucher...");
+            progressAlert.setContentText("Génération du PDF et envoi à " + emailClient + "\n\nVeuillez patienter...");
+            progressAlert.show();
 
-                            // 2. Envoyer par email
-                            boolean emailEnvoye = EmailSender.envoyerVoucherParEmail(voucher, email, pdfPath);
+            // Exécuter dans un thread séparé pour ne pas bloquer l'interface
+            new Thread(() -> {
+                try {
+                    // 1. Générer le PDF
+                    String pdfPath = VoucherPDFGenerator.generateVoucherPDF(voucher);
 
-                            // 3. Mettre à jour le statut
-                            if (emailEnvoye) {
-                                voucher.setStatut("EMIS");
-                                VoucherDAO dao = new VoucherDAO();
-                                dao.updateVoucher(voucher);
+                    // 2. Envoyer par email
+                    boolean emailEnvoye = EmailSender.envoyerVoucherParEmail(voucher, emailClient, pdfPath);
 
-                                // Mise à jour de l'interface (sur le thread JavaFX)
-                                javafx.application.Platform.runLater(() -> {
-                                    progressAlert.close();
-                                    tableVouchers.refresh();
-                                    mettreAJourStatistiques();
-                                    afficherSucces("Succès",
-                                            "Voucher émis et envoyé avec succès !\n\n" +
-                                                    "Email : " + email + "\n" +
-                                                    "PDF : " + pdfPath);
-                                });
-                            } else {
-                                javafx.application.Platform.runLater(() -> {
-                                    progressAlert.close();
-                                    afficherErreur("Erreur",
-                                            "Impossible d'envoyer l'email.\n\n" +
-                                                    "Vérifiez :\n" +
-                                                    "- Votre connexion Internet\n" +
-                                                    "- Vos identifiants Gmail\n" +
-                                                    "- Le mot de passe d'application");
-                                });
-                            }
+                    // 3. Mettre à jour le statut
+                    if (emailEnvoye) {
+                        voucher.setStatut("EMIS");
+                        VoucherDAO dao = new VoucherDAO();
+                        dao.updateVoucher(voucher);
 
-                        } catch (Exception e) {
-                            javafx.application.Platform.runLater(() -> {
-                                progressAlert.close();
-                                afficherErreur("Erreur", "Erreur : " + e.getMessage());
-                            });
-                            e.printStackTrace();
-                        }
-                    }).start();
+                        // Mise à jour de l'interface (sur le thread JavaFX)
+                        javafx.application.Platform.runLater(() -> {
+                            progressAlert.close();
+                            tableVouchers.refresh();
+                            mettreAJourStatistiques();
+
+                            // Message de succès
+                            Alert succes = new Alert(Alert.AlertType.INFORMATION);
+                            succes.setTitle("✅ Envoi réussi !");
+                            succes.setHeaderText("Voucher émis et envoyé avec succès");
+                            succes.setContentText(
+                                    "📧 Email envoyé à : " + emailClient + "\n" +
+                                            "🎫 Voucher : " + voucher.getCode() + "\n" +
+                                            "💰 Valeur : " + voucher.getValeur() + " Rs\n\n" +
+                                            "✓ Le client recevra le PDF par email\n" +
+                                            "✓ Le QR Code est inclus dans le PDF\n" +
+                                            "✓ Statut changé : GENERE → EMIS");
+                            succes.showAndWait();
+                        });
+                    } else {
+                        javafx.application.Platform.runLater(() -> {
+                            progressAlert.close();
+                            afficherErreur("❌ Erreur d'envoi",
+                                    "Impossible d'envoyer l'email à " + emailClient + "\n\n" +
+                                            "Vérifiez :\n" +
+                                            "✓ Votre connexion Internet\n" +
+                                            "✓ Vos identifiants Gmail dans EmailSender.java\n" +
+                                            "✓ Le mot de passe d'application Gmail\n" +
+                                            "✓ L'adresse email du client");
+                        });
+                    }
+
+                } catch (Exception e) {
+                    javafx.application.Platform.runLater(() -> {
+                        progressAlert.close();
+                        afficherErreur("Erreur", "Erreur technique : " + e.getMessage());
+                    });
+                    e.printStackTrace();
                 }
-            });
-        });
+            }).start();
+
+        } catch (SQLException e) {
+            afficherErreur("Erreur", "Impossible de récupérer les données du client : " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void annulerVoucher(Voucher voucher) {

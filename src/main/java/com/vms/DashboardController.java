@@ -5,6 +5,7 @@ import com.vms.model.Utilisateur;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.StackPane;
 import javafx.animation.ScaleTransition;
 import javafx.util.Duration;
 import javafx.scene.input.MouseEvent;
@@ -28,6 +29,12 @@ public class DashboardController {
     private Label userNameLabel;
 
     @FXML
+    private Label avatarLabel;
+
+    @FXML
+    private StackPane avatarCircle;
+
+    @FXML
     private VBox demandesCard;
 
     @FXML
@@ -42,6 +49,9 @@ public class DashboardController {
     @FXML
     private VBox voucherCard;
 
+    @FXML
+    private VBox redemptionCard;
+
     /**
      * Initialisation du contrôleur
      */
@@ -53,9 +63,15 @@ public class DashboardController {
         // Afficher l'utilisateur connecté
         Utilisateur user = LoginController.getUtilisateurConnecte();
         if (user != null) {
-            userNameLabel.setText("Help " + user.getNomComplet());
+            String nomComplet = user.getNomComplet();
+            userNameLabel.setText(nomComplet);
+
+            // Récupérer la première lettre du nom
+            String initiale = nomComplet.substring(0, 1).toUpperCase();
+            avatarLabel.setText(initiale);
         } else {
-            userNameLabel.setText("Help Guest");
+            userNameLabel.setText("Guest");
+            avatarLabel.setText("?");
         }
 
         // Ajouter les effets hover sur les cartes
@@ -64,6 +80,7 @@ public class DashboardController {
         setupCardEffects(magasinCard);
         setupCardEffects(clientsCard);
         setupCardEffects(voucherCard);
+        setupCardEffects(redemptionCard);
     }
 
     /**
@@ -164,6 +181,17 @@ public class DashboardController {
             Main.changeScene("vouchers.fxml");
         } catch (Exception e) {
             showMessage("Erreur lors de la navigation vers VOUCHER");
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleRedemptionClick() {
+        System.out.println("Navigation vers RÉDEMPTION");
+        try {
+            Main.changeScene("redemption.fxml");
+        } catch (Exception e) {
+            showMessage("Erreur lors de la navigation vers RÉDEMPTION");
             e.printStackTrace();
         }
     }
