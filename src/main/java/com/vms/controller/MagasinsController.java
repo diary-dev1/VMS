@@ -45,7 +45,6 @@ public class MagasinsController {
     @FXML private TextArea txtAdresse;
     @FXML private TextField txtVille;
     @FXML private TextField txtTelephone;
-    @FXML private TextField txtEmail;
     @FXML private TextField txtResponsable;
     @FXML private ComboBox<String> comboTypeMagasin;
     @FXML private TextField txtHeureOuverture;
@@ -223,7 +222,6 @@ public class MagasinsController {
         txtAdresse.clear();
         txtVille.clear();
         txtTelephone.clear();
-        txtEmail.clear();
         txtResponsable.clear();
         comboTypeMagasin.setValue(null);
         txtHeureOuverture.clear();
@@ -250,7 +248,6 @@ public class MagasinsController {
         magasinEnCours.setAdresse(txtAdresse.getText());
         magasinEnCours.setVille(txtVille.getText());
         magasinEnCours.setTelephone(txtTelephone.getText());
-        magasinEnCours.setEmail(txtEmail.getText());
         magasinEnCours.setResponsable(txtResponsable.getText());
         magasinEnCours.setTypeMagasin(comboTypeMagasin.getValue());
         magasinEnCours.setActif(chkActif.isSelected());
@@ -308,7 +305,6 @@ public class MagasinsController {
                         "Ville: %s\n" +
                         "Adresse: %s\n" +
                         "Téléphone: %s\n" +
-                        "Email: %s\n" +
                         "Responsable: %s\n" +
                         "Horaires: %s\n" +
                         "Statut: %s\n" +
@@ -320,7 +316,6 @@ public class MagasinsController {
                 magasin.getVille(),
                 magasin.getAdresse(),
                 magasin.getTelephone(),
-                magasin.getEmail() != null ? magasin.getEmail() : "Non défini",
                 magasin.getResponsable(),
                 magasin.getHoraires(),
                 magasin.isActif() ? "✓ Actif" : "✗ Inactif",
@@ -340,7 +335,6 @@ public class MagasinsController {
         txtAdresse.setText(magasin.getAdresse());
         txtVille.setText(magasin.getVille());
         txtTelephone.setText(magasin.getTelephone());
-        txtEmail.setText(magasin.getEmail());
         txtResponsable.setText(magasin.getResponsable());
         comboTypeMagasin.setValue(magasin.getTypeMagasin());
 

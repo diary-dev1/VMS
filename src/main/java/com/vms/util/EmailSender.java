@@ -15,7 +15,7 @@ public class EmailSender {
 
     // Configuration email - À MODIFIER avec vos identifiants Gmail
     private static final String EMAIL_FROM = "sojavelodiary@gmail.com";
-    private static final String EMAIL_PASSWORD = "Fanekena";
+    private static final String EMAIL_PASSWORD = "amizrdyfkktrooft";
     private static final String SMTP_HOST = "smtp.gmail.com";
     private static final String SMTP_PORT = "587";
 

@@ -34,8 +34,8 @@
                 <Button text="🔄 Actualiser" onAction="#actualiserListe"
                         style="-fx-background-color: #F1F5F9; -fx-text-fill: #475569; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold;"/>
 
-                <Button text="📊 Export Excel" onAction="#exporterExcel"
-                        style="-fx-background-color: #10B981; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold;"/>
+                <Button text="📄 Export PDF" onAction="#exporterPDF"
+                        style="-fx-background-color: #EF4444; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold;"/>
 
                 <Region HBox.hgrow="ALWAYS"/>
 
@@ -126,17 +126,9 @@
                           style="-fx-background-color: #F8FAFC; -fx-background-radius: 8; -fx-padding: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 8;"/>
             </VBox>
 
-            <HBox spacing="10">
-                <VBox spacing="8" HBox.hgrow="ALWAYS">
-                    <Label text="Téléphone :" style="-fx-font-weight: bold; -fx-text-fill: #475569; -fx-font-size: 14px;"/>
-                    <TextField fx:id="txtTelephone" promptText="+230 xxx xxxx"
-                               style="-fx-background-color: #F8FAFC; -fx-background-radius: 8; -fx-padding: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 8;"/>
-                </VBox>
-            </HBox>
-
             <VBox spacing="8">
-                <Label text="Email :" style="-fx-font-weight: bold; -fx-text-fill: #475569; -fx-font-size: 14px;"/>
-                <TextField fx:id="txtEmail" promptText="email@magasin.com"
+                <Label text="Téléphone :" style="-fx-font-weight: bold; -fx-text-fill: #475569; -fx-font-size: 14px;"/>
+                <TextField fx:id="txtTelephone" promptText="+230 xxx xxxx"
                            style="-fx-background-color: #F8FAFC; -fx-background-radius: 8; -fx-padding: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 8;"/>
             </VBox>
 
