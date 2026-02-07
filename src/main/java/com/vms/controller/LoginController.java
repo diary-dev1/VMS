@@ -1,8 +1,8 @@
 package com.vms.controller;
 
 import com.vms.Main;
-import com.vms.dao.UtilisateurDAO;
-import com.vms.model.Utilisateur;
+import com.vms.model.User;           // ✅ AJOUTER CETTE LIGNE
+import com.vms.dao.UserDAO;          // ✅ AJOUTER CETTE LIGNE
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -17,7 +17,7 @@ public class LoginController {
     @FXML private Hyperlink linkSignup;
     @FXML private Label lblError;
 
-    private static Utilisateur utilisateurConnecte;
+    private static User utilisateurConnecte;  // ✅ OK maintenant
 
     @FXML
     private void handleLogin() {
@@ -30,14 +30,15 @@ public class LoginController {
         }
 
         try {
-            UtilisateurDAO dao = new UtilisateurDAO();
-            Utilisateur user = dao.authenticate(username, password);
+            UserDAO dao = new UserDAO();  // ✅ CHANGER User en UserDAO
+            User user = dao.authenticate(username, password);
 
             if (user != null) {
                 utilisateurConnecte = user;
-                utilisateurConnecte.setNomComplet(username);
+                // ❌ RETIRER CETTE LIGNE - le nom vient déjà de la BD
+                // utilisateurConnecte.setNomComplet(username);
 
-                System.out.println("✅ Connexion réussie : " + username);
+                System.out.println("✅ Connexion réussie : " + user.getNomComplet());
 
                 Main.changeScene("dashboard.fxml");
             } else {
@@ -46,6 +47,7 @@ public class LoginController {
 
         } catch (SQLException e) {
             System.err.println("❌ Erreur base de données : " + e.getMessage());
+            e.printStackTrace();
             afficherErreur("Erreur de connexion à la base de données");
         } catch (IOException e) {
             System.err.println("❌ Erreur navigation : " + e.getMessage());
@@ -76,7 +78,7 @@ public class LoginController {
         }
     }
 
-    public static Utilisateur getUtilisateurConnecte() {
+    public static User getUtilisateurConnecte() {
         return utilisateurConnecte;
     }
 

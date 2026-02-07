@@ -49,6 +49,17 @@
             <artifactId>javafx-swing</artifactId>
             <version>${javafx.version}</version>
         </dependency>
+        <dependency>
+            <groupId>jakarta.mail</groupId>
+            <artifactId>jakarta.mail-api</artifactId>
+            <version>2.1.0</version> <!-- Utilisez la dernière version -->
+        </dependency>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+
 
         <!-- PostgreSQL Driver -->
         <dependency>
@@ -90,11 +101,10 @@
             <version>5.2.5</version>
         </dependency>
 
-        <!-- Jakarta Mail pour l'envoi d'emails -->
         <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>jakarta.mail</artifactId>
-            <version>2.0.1</version>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+            <version>2.1.0</version> <!-- Utilisez la dernière version -->
         </dependency>
 
         <!-- Apache PDFBox pour génération PDF -->

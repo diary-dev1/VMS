@@ -8,10 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/**
- * Application principale VMS (Voucher Management System)
- * Point d'entrée de l'application JavaFX
- */
+
 public class Main extends Application {
 
     private static Stage primaryStage;

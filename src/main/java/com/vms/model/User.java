@@ -2,8 +2,7 @@ package com.vms.model;
 
 import java.time.LocalDateTime;
 
-public class Utilisateur {
-
+public class User {
     private int id;
     private String username;
     private String passwordHash;
@@ -15,18 +14,31 @@ public class Utilisateur {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    // Constructeurs
-    public Utilisateur() {
-        this.actif = true;
-        this.role = "UTILISATEUR";
-    }
+    // Constructeur vide
+    public User() {}
 
-    public Utilisateur(String username, String passwordHash, String nomComplet, String email) {
-        this();
+    // Constructeur complet
+    public User(String username, String passwordHash, String nomComplet,
+                String email, String role, boolean actif) {
         this.username = username;
         this.passwordHash = passwordHash;
         this.nomComplet = nomComplet;
         this.email = email;
+        this.role = role;
+        this.actif = actif;
+    }
+
+    // Méthodes utiles pour vérifier les rôles
+    public boolean hasRole(String requiredRole) {
+        return this.role != null && this.role.equals(requiredRole);
+    }
+
+    public boolean hasAnyRole(String... roles) {
+        if (this.role == null) return false;
+        for (String r : roles) {
+            if (this.role.equals(r)) return true;
+        }
+        return false;
     }
 
     // Getters et Setters
@@ -110,26 +122,15 @@ public class Utilisateur {
         this.updatedAt = updatedAt;
     }
 
-    // Méthodes utilitaires
-    public boolean isAdmin() {
-        return "ADMIN".equalsIgnoreCase(this.role);
-    }
-
     @Override
     public String toString() {
-        return nomComplet + " (" + username + ")";
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        Utilisateur that = (Utilisateur) obj;
-        return id == that.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Integer.hashCode(id);
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", nomComplet='" + nomComplet + '\'' +
+                ", email='" + email + '\'' +
+                ", role='" + role + '\'' +
+                ", actif=" + actif +
+                '}';
     }
 }
