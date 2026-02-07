@@ -4,9 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- * Classe pour gérer la connexion à la base de données PostgreSQL
- */
+
 public class DatabaseConnection {
 
     // Configuration de la base de données AlwaysData
@@ -16,9 +14,6 @@ public class DatabaseConnection {
 
     private static Connection connection = null;
 
-    /**
-     * Obtenir une connexion à la base de données
-     */
     public static Connection getConnection() throws SQLException {
         if (connection == null || connection.isClosed()) {
             try {
@@ -32,15 +27,15 @@ public class DatabaseConnection {
                 // Créer la connexion
                 connection = DriverManager.getConnection(URL, USER, PASSWORD);
 
-                System.out.println("✅ Connexion à PostgreSQL réussie !");
+                System.out.println(" Connexion à PostgreSQL réussie !");
 
             } catch (ClassNotFoundException e) {
-                System.err.println("❌ Driver PostgreSQL non trouvé !");
-                System.err.println("💡 Vérifiez que postgresql-42.7.1.jar est dans pom.xml");
+                System.err.println(" Driver PostgreSQL non trouvé !");
+                System.err.println(" Vérifiez que postgresql-42.7.1.jar est dans pom.xml");
                 throw new SQLException("Driver PostgreSQL non trouvé", e);
             } catch (SQLException e) {
-                System.err.println("❌ Erreur de connexion à PostgreSQL !");
-                System.err.println("💡 Message : " + e.getMessage());
+                System.err.println(" Erreur de connexion à PostgreSQL !");
+                System.err.println(" Message : " + e.getMessage());
                 throw e;
             }
         }

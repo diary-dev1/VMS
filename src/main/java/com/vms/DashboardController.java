@@ -1,11 +1,12 @@
 package com.vms;
 
 import com.vms.controller.LoginController;
-import com.vms.model.Utilisateur;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.StackPane;
+import com.vms.model.User;
+import com.vms.dao.UserDAO;
 import javafx.animation.ScaleTransition;
 import javafx.util.Duration;
 import javafx.scene.input.MouseEvent;
@@ -61,7 +62,7 @@ public class DashboardController {
         updateDateTime();
 
         // Afficher l'utilisateur connecté
-        Utilisateur user = LoginController.getUtilisateurConnecte();
+        User user = LoginController.getUtilisateurConnecte();
         if (user != null) {
             String nomComplet = user.getNomComplet();
             userNameLabel.setText(nomComplet);
@@ -149,9 +150,13 @@ public class DashboardController {
     @FXML
     private void handleUtilisateursClick() {
         System.out.println("Navigation vers UTILISATEURS");
-        showMessage("Module UTILISATEURS - En développement");
+        try {
+            Main.changeScene("User.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showMessage("Erreur lors du chargement du module Utilisateurs");
+        }
     }
-
     @FXML
     private void handleMagasinClick() {
         System.out.println("Navigation vers MAGASIN");
