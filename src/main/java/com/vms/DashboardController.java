@@ -112,6 +112,21 @@ public class DashboardController {
             showMessage("Erreur lors du chargement du module Utilisateurs");
         }
     }
+    @FXML
+    private void handleExportExcel() {
+        try {
+            String fichier = com.vms.util.ExcelExporter.exporter("Rapport_VMS");
+            java.awt.Desktop.getDesktop().open(new java.io.File(fichier));
+        } catch (Exception e) {
+            javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
+                    javafx.scene.control.Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("Erreur export : " + e.getMessage());
+            alert.showAndWait();
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void handleMagasinClick() {

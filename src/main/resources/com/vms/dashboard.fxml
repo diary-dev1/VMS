@@ -61,8 +61,10 @@
             <!-- Spacer pour pousser le bouton déconnexion en bas -->
             <Region VBox.vgrow="ALWAYS"/>
 
+            <Button text="Exporter Excel" onAction="#handleExportExcel"
+                    style="-fx-background-color: #2563EB; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 12 20; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold; -fx-pref-width: 180;"/>
             <!-- Bouton Déconnexion -->
-            <Button text="🚪 Déconnexion" onAction="#handleLogout"
+            <Button text=" Déconnexion" onAction="#handleLogout"
                     style="-fx-background-color: #EF4444; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 12 20; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold; -fx-pref-width: 180;">
             </Button>
         </VBox>
