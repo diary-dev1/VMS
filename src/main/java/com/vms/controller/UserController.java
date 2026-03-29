@@ -68,14 +68,14 @@ public class UserController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // Vérifier que l'utilisateur connecté est ADMINISTRATEUR
         User currentUser = LoginController.getUtilisateurConnecte();
-        if (currentUser == null || !currentUser.hasRole("ADMINISTRATEUR")) {
-            System.err.println("❌ Accès refusé !");
-            // ✅ Retourne APRÈS l'affichage de l'alerte
+        if (currentUser == null || !currentUser.hasRole("SUPER_USER")) {
+            System.err.println(" Accès refusé !");
+
             javafx.application.Platform.runLater(() -> {
                 afficherErreur("Accès refusé", "Vous devez être administrateur pour accéder à cette page");
                 retourDashboard();
             });
-            return;  // ✅ STOP ICI
+            return;
         }
 
         // Initialiser le tableau
@@ -129,11 +129,10 @@ public class UserController implements Initializable {
     private void initializeForm() {
         if (comboRole != null) {
             comboRole.setItems(FXCollections.observableArrayList(
-                    "CLIENT",
+                    "INITIATEUR",
                     "APPROBATEUR",
-                    "COMPTABLE",
-                    "SUPERVISEUR_MAGASIN",
-                    "ADMINISTRATEUR"
+                    "ADMINISTRATEUR",
+                    "SUPER_USER"
             ));
         }
     }
@@ -158,7 +157,7 @@ public class UserController implements Initializable {
             }
             System.out.println("✅ " + users.size() + " utilisateurs chargés");
         } catch (Exception e) {
-            System.err.println("❌ Erreur lors du chargement des utilisateurs : " + e.getMessage());
+            System.err.println(" Erreur lors du chargement des utilisateurs : " + e.getMessage());
             e.printStackTrace();
             afficherErreur("Erreur", "Impossible de charger les utilisateurs");
         }
@@ -188,7 +187,7 @@ public class UserController implements Initializable {
         }
     }
 
-    // ==================== CREATE ====================
+
 
     @FXML
     private void showCreateForm() {
@@ -202,18 +201,20 @@ public class UserController implements Initializable {
         if (txtPassword != null) txtPassword.setDisable(false);
         if (txtConfirmPassword != null) txtConfirmPassword.setDisable(false);
 
-        // ✅ AJOUTE CES LIGNES ICI :
+
         if (comboRole != null) {
             comboRole.setItems(FXCollections.observableArrayList(
-                    "CLIENT",
+                    "INITIATEUR",
                     "APPROBATEUR",
-                    "COMPTABLE",
-                    "SUPERVISEUR_MAGASIN",
-                    "ADMINISTRATEUR"
+                    "ADMINISTRATEUR",
+                    "SUPER_USER"
             ));
         }
 
-        if (formContainer != null) formContainer.setVisible(true);
+        if (formContainer != null) {
+            formContainer.setVisible(true);
+            formContainer.setManaged(true);
+        }
     }
     // ==================== UPDATE ====================
 
@@ -227,14 +228,13 @@ public class UserController implements Initializable {
         isEditMode = true;
 
         if (lblFormTitle != null) lblFormTitle.setText("Modifier l'utilisateur");
-        // ✅ AJOUTE CETTE LIGNE :
+
         if (comboRole != null) {
             comboRole.setItems(FXCollections.observableArrayList(
-                    "CLIENT",
+                    "INITIATEUR",
                     "APPROBATEUR",
-                    "COMPTABLE",
-                    "SUPERVISEUR_MAGASIN",
-                    "ADMINISTRATEUR"
+                    "ADMINISTRATEUR",
+                    "SUPER_USER"
             ));
             comboRole.setValue(selectedUser.getRole());  // Puis set la valeur
         }
@@ -257,9 +257,11 @@ public class UserController implements Initializable {
             txtConfirmPassword.setDisable(true);
         }
 
-        if (formContainer != null) formContainer.setVisible(true);
+        if (formContainer != null) {
+            formContainer.setVisible(true);
+            formContainer.setManaged(true);
+        }
     }
-
     @FXML
     private void handleSave() {
         // Validation
@@ -276,7 +278,7 @@ public class UserController implements Initializable {
                 createUser();
             }
         } catch (Exception e) {
-            System.err.println("❌ Erreur lors de la sauvegarde : " + e.getMessage());
+            System.err.println(" Erreur lors de la sauvegarde : " + e.getMessage());
             e.printStackTrace();
             afficherErreur("Erreur", "Erreur lors de la sauvegarde : " + e.getMessage());
         }
@@ -302,7 +304,7 @@ public class UserController implements Initializable {
             return;
         }
 
-        // ✅ CRÉATION DIRECTE (remplace authService.register)
+
         User newUser = new User();
         newUser.setUsername(username);
         newUser.setPasswordHash(password);  // TODO: Implémenter BCrypt pour hasher
@@ -493,6 +495,7 @@ public class UserController implements Initializable {
     private void hideForm() {
         if (formContainer != null) {
             formContainer.setVisible(false);
+            formContainer.setManaged(false);
         }
         clearForm();
         selectedUser = null;
