@@ -1,12 +1,12 @@
 package com.vms;
 
 import com.vms.controller.LoginController;
+import com.vms.model.User;
+import com.vms.util.RBACUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.StackPane;
-import com.vms.model.User;
-import com.vms.dao.UserDAO;
 import javafx.animation.ScaleTransition;
 import javafx.util.Duration;
 import javafx.scene.input.MouseEvent;
@@ -15,67 +15,43 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * Contrôleur pour le dashboard principal
- */
 public class DashboardController {
 
-    @FXML
-    private Label timeLabel;
+    @FXML private Label timeLabel;
+    @FXML private Label dateLabel;
+    @FXML private Label userNameLabel;
+    @FXML private Label avatarLabel;
+    @FXML private StackPane avatarCircle;
+    @FXML private VBox demandesCard;
+    @FXML private VBox utilisateursCard;
+    @FXML private VBox magasinCard;
+    @FXML private VBox clientsCard;
+    @FXML private VBox voucherCard;
+    @FXML private VBox redemptionCard;
 
-    @FXML
-    private Label dateLabel;
-
-    @FXML
-    private Label userNameLabel;
-
-    @FXML
-    private Label avatarLabel;
-
-    @FXML
-    private StackPane avatarCircle;
-
-    @FXML
-    private VBox demandesCard;
-
-    @FXML
-    private VBox utilisateursCard;
-
-    @FXML
-    private VBox magasinCard;
-
-    @FXML
-    private VBox clientsCard;
-
-    @FXML
-    private VBox voucherCard;
-
-    @FXML
-    private VBox redemptionCard;
-
-    /**
-     * Initialisation du contrôleur
-     */
     @FXML
     public void initialize() {
-        // Mettre à jour l'heure et la date
         updateDateTime();
 
-        // Afficher l'utilisateur connecté
         User user = LoginController.getUtilisateurConnecte();
         if (user != null) {
             String nomComplet = user.getNomComplet();
             userNameLabel.setText(nomComplet);
-
-            // Récupérer la première lettre du nom
-            String initiale = nomComplet.substring(0, 1).toUpperCase();
-            avatarLabel.setText(initiale);
+            avatarLabel.setText(nomComplet.substring(0, 1).toUpperCase());
         } else {
             userNameLabel.setText("Guest");
             avatarLabel.setText("?");
         }
 
-        // Ajouter les effets hover sur les cartes
+        // RBAC - cacher les cartes selon le rôle
+        utilisateursCard.setVisible(RBACUtil.peutAcceder(user, "UTILISATEURS"));
+        utilisateursCard.setManaged(RBACUtil.peutAcceder(user, "UTILISATEURS"));
+        redemptionCard.setVisible(RBACUtil.peutAcceder(user, "REDEMPTION"));
+        redemptionCard.setManaged(RBACUtil.peutAcceder(user, "REDEMPTION"));
+        clientsCard.setVisible(RBACUtil.peutAcceder(user, "CLIENTS"));
+        clientsCard.setManaged(RBACUtil.peutAcceder(user, "CLIENTS"));
+
+        // Effets hover
         setupCardEffects(demandesCard);
         setupCardEffects(utilisateursCard);
         setupCardEffects(magasinCard);
@@ -84,58 +60,37 @@ public class DashboardController {
         setupCardEffects(redemptionCard);
     }
 
-    /**
-     * Mettre à jour la date et l'heure
-     */
     private void updateDateTime() {
         LocalDateTime now = LocalDateTime.now();
-
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         timeLabel.setText(now.format(timeFormatter));
-
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("EEEE, d MMMM, yyyy");
         dateLabel.setText(now.format(dateFormatter));
     }
 
-    /**
-     * Configuration des effets pour les cartes
-     */
     private void setupCardEffects(VBox card) {
         card.setOnMouseEntered(this::handleCardHover);
         card.setOnMouseExited(this::handleCardExit);
     }
 
-    /**
-     * Effet hover sur les cartes
-     */
     private void handleCardHover(MouseEvent event) {
         VBox card = (VBox) event.getSource();
-
         ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), card);
         scaleTransition.setToX(1.05);
         scaleTransition.setToY(1.05);
         scaleTransition.play();
-
         card.setStyle(card.getStyle() + "-fx-background-color: #F7FAFC;");
     }
 
-    /**
-     * Effet de sortie de hover
-     */
     private void handleCardExit(MouseEvent event) {
         VBox card = (VBox) event.getSource();
-
         ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), card);
         scaleTransition.setToX(1.0);
         scaleTransition.setToY(1.0);
         scaleTransition.play();
-
         card.setStyle(card.getStyle() + "-fx-background-color: white;");
     }
 
-    /**
-     * Actions pour les cartes
-     */
     @FXML
     private void handleDemandesClick() {
         System.out.println("Navigation vers DEMANDES");
@@ -151,12 +106,13 @@ public class DashboardController {
     private void handleUtilisateursClick() {
         System.out.println("Navigation vers UTILISATEURS");
         try {
-            Main.changeScene("User.fxml");
+            Main.changeScene("utilisateurs.fxml");
         } catch (IOException e) {
             e.printStackTrace();
             showMessage("Erreur lors du chargement du module Utilisateurs");
         }
     }
+
     @FXML
     private void handleMagasinClick() {
         System.out.println("Navigation vers MAGASIN");
@@ -201,20 +157,15 @@ public class DashboardController {
         }
     }
 
-    /**
-     * Afficher un message (à remplacer par une vraie notification)
-     */
     private void showMessage(String message) {
-        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
+                javafx.scene.control.Alert.AlertType.INFORMATION);
         alert.setTitle("VMS");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
 
-    /**
-     * Action du bouton logout
-     */
     @FXML
     private void handleLogout() {
         System.out.println("Déconnexion");

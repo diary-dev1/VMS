@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.vms.controller.UserController"
+            styleClass="main-container">
+
+    <top>
+        <HBox styleClass="header" alignment="CENTER_LEFT" spacing="20">
+            <padding>
+                <Insets top="15" right="20" bottom="15" left="20"/>
+            </padding>
+            <Button text="Retour" onAction="#handleBack" styleClass="button-secondary"/>
+            <Label text="Gestion des Utilisateurs" styleClass="page-title">
+                <font><Font name="Arial Bold" size="20"/></font>
+            </Label>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Deconnexion" onAction="#handleLogout" styleClass="button-danger"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="20" styleClass="content-area">
+            <padding><Insets top="20" right="30" bottom="20" left="30"/></padding>
+
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <Button fx:id="btnCreate" text="Nouvel Utilisateur" onAction="#showCreateForm" styleClass="button-primary"/>
+                <Button fx:id="btnEdit" text="Modifier" onAction="#showEditForm" disable="true" styleClass="button-secondary"/>
+                <Button fx:id="btnDelete" text="Supprimer" onAction="#handleDelete" disable="true" styleClass="button-danger"/>
+                <Button fx:id="btnToggleActive" text="Activer/Desactiver" onAction="#handleToggleActive" disable="true" styleClass="button-secondary"/>
+                <Button fx:id="btnRefresh" text="Actualiser" onAction="#loadUsers" styleClass="button-secondary"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="txtSearch" promptText="Rechercher..." prefWidth="300" onKeyReleased="#handleSearch"/>
+            </HBox>
+
+            <TableView fx:id="tableUsers" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                    <TableColumn fx:id="colUsername" text="Username" prefWidth="120"/>
+                    <TableColumn fx:id="colNomComplet" text="Nom complet" prefWidth="180"/>
+                    <TableColumn fx:id="colEmail" text="Email" prefWidth="180"/>
+                    <TableColumn fx:id="colRole" text="Role" prefWidth="130"/>
+                    <TableColumn fx:id="colActif" text="Statut" prefWidth="80"/>
+                </columns>
+                <placeholder>
+                    <Label text="Aucun utilisateur" styleClass="placeholder-label"/>
+                </placeholder>
+            </TableView>
+        </VBox>
+    </center>
+
+    <right>
+        <VBox fx:id="formContainer" styleClass="form-panel" spacing="15" visible="false" managed="false">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+            <Label fx:id="lblFormTitle" text="Nouvel utilisateur" styleClass="form-title">
+                <font><Font name="Arial Bold" size="18"/></font>
+            </Label>
+            <Separator/>
+
+            <VBox spacing="5">
+                <Label text="Username :" styleClass="label-bold"/>
+                <TextField fx:id="txtUsername" promptText="Ex: john.doe"/>
+            </VBox>
+
+            <VBox spacing="5">
+                <Label text="Nom complet :" styleClass="label-bold"/>
+                <TextField fx:id="txtNomComplet" promptText="Ex: John Doe"/>
+            </VBox>
+
+            <VBox spacing="5">
+                <Label text="Email :" styleClass="label-bold"/>
+                <TextField fx:id="txtEmail" promptText="Ex: john@vms.com"/>
+            </VBox>
+
+            <VBox spacing="5">
+                <Label text="Mot de passe :" styleClass="label-bold"/>
+                <PasswordField fx:id="txtPassword" promptText="Mot de passe"/>
+            </VBox>
+
+            <VBox spacing="5">
+                <Label text="Confirmer mot de passe :" styleClass="label-bold"/>
+                <PasswordField fx:id="txtConfirmPassword" promptText="Confirmer"/>
+            </VBox>
+
+            <VBox spacing="5">
+                <Label text="Role :" styleClass="label-bold"/>
+                <ComboBox fx:id="comboRole" promptText="Selectionner un role" maxWidth="Infinity"/>
+            </VBox>
+
+            <CheckBox fx:id="checkActif" text="Utilisateur actif" selected="true" styleClass="label-bold"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <HBox spacing="10">
+                <Button fx:id="btnSave" text="Enregistrer" onAction="#handleSave" styleClass="button-primary" HBox.hgrow="ALWAYS"/>
+                <Button fx:id="btnCancel" text="Annuler" onAction="#handleCancel" styleClass="button-danger" HBox.hgrow="ALWAYS"/>
+            </HBox>
+        </VBox>
+    </right>
+
+</BorderPane>
