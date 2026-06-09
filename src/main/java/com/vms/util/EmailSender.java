@@ -14,8 +14,8 @@ import java.util.Properties;
 public class EmailSender {
 
     // Configuration email - À MODIFIER avec vos identifiants Gmail
-    private static final String EMAIL_FROM = "sojavelodiary@gmail.com";
-    private static final String EMAIL_PASSWORD = "amizrdyfkktrooft";
+    private static final String EMAIL_FROM = "manjakaginola@gmail.com";
+    private static final String EMAIL_PASSWORD = "sibhvajgxnpigtbl";
     private static final String SMTP_HOST = "smtp.gmail.com";
     private static final String SMTP_PORT = "587";
 
@@ -100,19 +100,17 @@ public class EmailSender {
             // Envoi
             Transport.send(message);
 
-            System.out.println("✅ Email envoyé avec succès à " + emailDestinataire);
+            System.out.println("Email envoyé avec succès à " + emailDestinataire);
             return true;
 
         } catch (MessagingException | IOException e) {
-            System.err.println("❌ Erreur envoi email : " + e.getMessage());
+            System.err.println(" Erreur envoi email : " + e.getMessage());
             e.printStackTrace();
             return false;
         }
     }
 
-    /**
-     * Envoyer un email simple (sans pièce jointe)
-     */
+
     public static boolean envoyerEmailSimple(String destinataire, String sujet, String contenu) {
         try {
             Properties props = new Properties();
@@ -135,22 +133,20 @@ public class EmailSender {
 
             Transport.send(message);
 
-            System.out.println("✅ Email simple envoyé à " + destinataire);
+            System.out.println(" Email simple envoyé à " + destinataire);
             return true;
 
         } catch (MessagingException e) {
-            System.err.println("❌ Erreur envoi email : " + e.getMessage());
+            System.err.println(" Erreur envoi email : " + e.getMessage());
             e.printStackTrace();
             return false;
         }
     }
 
-    /**
-     * Vérifier la configuration email
-     */
+
     public static boolean verifierConfiguration() {
         if (EMAIL_FROM.equals("votre-email@gmail.com") || EMAIL_PASSWORD.equals("votre-mot-de-passe-app")) {
-            System.err.println("⚠️ Configuration email non définie !");
+            System.err.println(" Configuration email non définie !");
             return false;
         }
         return true;
