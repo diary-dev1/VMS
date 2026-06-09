@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
 
-    private static final String URL = "jdbc:postgresql://postgresql-diary.alwaysdata.net:5432/diary_vms";
-    private static final String USER = "diary";
-    private static final String PASSWORD = "Fanekena";
+    private static final String URL = "jdbc:postgresql://localhost:5432/VMS";
+    private static final String USER = "postgres";
+    private static final String PASSWORD = "0000";
 
     private static Connection connection = null;
     private static boolean driverLoaded = false; // ← évite de recharger le driver
